@@ -58,6 +58,7 @@ async function manager() {
       return;
     }
   }
+  console.log(`Switch from mode ${previousMode} to ${targetMode}`);
 
   const targetMode = ssid ? getSSIDMode(ssid) : config.cellular;
 
@@ -129,7 +130,7 @@ function restoreDecisions() {
 function getSSIDMode(ssid) {
   const map = {};
   config.all_direct.foreach((id) => (map[id] = "DIRECT"));
-  config.all_proxy.foreahc((id) => (map[id] = "PROXY"));
+  config.all_proxy.foreach((id) => (map[id] = "PROXY"));
 
   const matched = map[ssid];
   return matched ? matched : config.wifi;
