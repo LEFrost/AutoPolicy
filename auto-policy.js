@@ -2,10 +2,10 @@
 let config = {
   global_direct: "DIRECT",
   global_proxy: "HK-LoadBalance",
-  silence: false, // 是否静默运行，默认false
+  silence: true, // 是否静默运行，默认false
   cellular: "RULE", // 蜂窝数据下的模式，RULE代表规则模式，PROXY代表全局代理，DIRECT代表全局直连
   wifi: "RULE", // wifi下默认的模式
-  all_direct: ["Frost", "Frost_2.4G"], // 指定全局直连å的wifi名字
+  all_direct: ["Frost","Frost_2.4G"], // 指定全局直连å的wifi名字
   all_proxy: [], // 指定全局代理的wifi名字
   whitelist: ["Adblock"],
 };
@@ -58,7 +58,6 @@ async function manager() {
       return;
     }
   }
-  console.log(`Switch from mode ${previousMode} to ${targetMode}`);
 
   const targetMode = ssid ? getSSIDMode(ssid) : config.cellular;
 
@@ -129,8 +128,8 @@ function restoreDecisions() {
 
 function getSSIDMode(ssid) {
   const map = {};
-  config.all_direct.foreach((id) => (map[id] = "DIRECT"));
-  config.all_proxy.foreach((id) => (map[id] = "PROXY"));
+  config.all_direct.forEach((id) => (map[id] = "DIRECT"));
+  config.all_proxy.forEach((id) => (map[id] = "PROXY"));
 
   const matched = map[ssid];
   return matched ? matched : config.wifi;
