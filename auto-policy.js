@@ -1,37 +1,13 @@
-/**
- * 自动策略 Surge & Loon，根据当前网络自动切换策略组，主要用于搭配软路由等使用。
- * 由于运行模式的全局直连下，去广告，网易云等分流也会失效，使用此脚本完全解决了此类问题。
- * @author: Peng-YM
- * 更新地址: https://raw.githubusercontent.com/Peng-YM/QuanX/master/Tools/AutoPolicy/auto-policy.js
- *
- *************** Surge配置 ***********************
- * 推荐使用模块：
- * https://raw.githubusercontent.com/Peng-YM/QuanX/master/Tools/AutoPolicy/auto-policy.sgmodule
- * 手动配置：
- * [Script]
- * event network-changed script-path=https://raw.githubusercontent.com/Peng-YM/QuanX/master/Tools/AutoPolicy/auto-policy.js
- *
- *************** Loon配置 ***********************
- * 推荐使用插件：
- * https://raw.githubusercontent.com/Peng-YM/QuanX/master/Tools/AutoPolicy/auto-policy.plugin
- * 手动配置：
- * [Script]
- * network-changed script-path=https://raw.githubusercontent.com/Peng-YM/QuanX/master/Tools/AutoPolicy/auto-policy.js
- *************** 脚本配置 ***********************
- * 推荐使用BoxJS配置。
- * BoxJS订阅：https://raw.githubusercontent.com/Peng-YM/QuanX/master/Tasks/box.js.json
- * (不推荐！)手动配置项为config, 请看注释
- */
 
 let config = {
-  global_direct: "♲ 𝐃𝐢𝐫𝐞𝐜𝐭",
-  global_proxy: "𝑷𝒓𝒐𝒙𝒚",
+  global_direct: "DIRECT",
+  global_proxy: "PROXY",
   silence: false, // 是否静默运行，默认false
   cellular: "RULE", // 蜂窝数据下的模式，RULE代表规则模式，PROXY代表全局代理，DIRECT代表全局直连
   wifi: "RULE", // wifi下默认的模式
-  all_direct: ["WRT32X", "WRT32X Extreme"], // 指定全局直连的wifi名字
+  all_direct: ["Frost", "Frost_2.4G"], // 指定全局直连的wifi名字
   all_proxy: [], // 指定全局代理的wifi名字
-  whitelist: ["𝑵𝒆𝒕𝒆𝒂𝒔𝒆 𝑴𝒖𝒔𝒊𝒄", "𝑨𝒅𝑮𝒖𝒂𝒓𝒅"],
+  whitelist: [],
 };
 
 const isLoon = typeof $loon !== "undefined";
@@ -152,8 +128,8 @@ function restoreDecisions() {
 
 function getSSIDMode(ssid) {
   const map = {};
-  config.all_direct.map((id) => (map[id] = "DIRECT"));
-  config.all_proxy.map((id) => (map[id] = "PROXY"));
+  config.all_direct.foreach((id) => (map[id] = "DIRECT"));
+  config.all_proxy.foreahc((id) => (map[id] = "PROXY"));
 
   const matched = map[ssid];
   return matched ? matched : config.wifi;
