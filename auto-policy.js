@@ -87,7 +87,7 @@ async function manager() {
   $persistentStore.write(targetMode, "surge_auto_policy_mode");
   if (!config.silence) {
     notify(
-      "🤖️ SSID 自动策略",
+      "自动策略",
       `当前网络：${ssid ? ssid : "蜂窝数据"}`,
       `${isSurge ? "Surge" : "Loon"}已切换至${lookupOutbound(targetMode)}`
     );
@@ -137,9 +137,9 @@ function getSSIDMode(ssid) {
 
 function lookupOutbound(mode) {
   return {
-    RULE: "🚦规则模式",
-    PROXY: "🚀全局代理模式",
-    DIRECT: "🎯全局直连模式",
+    RULE: "RULE MODE",
+    PROXY: "GOBAL MODE",
+    DIRECT: "DIRECT MODE",
   }[mode];
 }
 
